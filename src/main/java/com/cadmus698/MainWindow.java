@@ -25,7 +25,7 @@ public class MainWindow extends JFrame{
         MainWindow gui = new MainWindow();
         gui.setDefaultCloseOperation(EXIT_ON_CLOSE);
         gui.setTitle("Grade Management");
-        gui.calendarPanel.add(new GCalPanel());
+        //gui.calendarPanel.add(new GCalPanel());
         gui.setVisible(true);
         gui.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }

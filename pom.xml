@@ -28,7 +28,7 @@
 
         <dependency>
             <groupId>com.cadmus698</groupId>
-            <artifactId>NucleusPanels</artifactId>
+            <artifactId>NucleusFX</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

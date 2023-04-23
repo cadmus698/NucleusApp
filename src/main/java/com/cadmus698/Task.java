@@ -8,6 +8,7 @@ public class Task {
     Chapter chapter;
     int priority;
     LocalDate dueDate;
+    LocalDate toDoDate;
     int length;
     String description;
 
@@ -16,8 +17,17 @@ public class Task {
         chapter = cha;
         priority = pri;
         dueDate = due;
+        toDoDate = dueDate;
         length = len;
         description = desc;
+    }
+
+    public void selfInit(){
+        chapter.add(this);
+    }
+
+    public String toString(){
+        return title;
     }
     
 }

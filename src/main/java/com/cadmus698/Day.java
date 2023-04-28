@@ -19,6 +19,6 @@ public class Day {
 
     @Override
     public String toString() {
-        return date + " - " + tasks;
+        return date + "\n" + tasks;
     }
 }

@@ -29,5 +29,9 @@ public class Task {
     public String toString(){
         return title;
     }
+
+    public void initTask(){
+        chapter.add(this);
+    }
     
 }

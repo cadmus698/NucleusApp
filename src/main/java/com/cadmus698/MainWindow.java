@@ -21,6 +21,8 @@ public class MainWindow extends JFrame{
     private JPanel calendarPanel;
     private JPanel sessionPanel;
     private JPanel musicPanel;
+    private JMenuBar menuBar;
+    private JMenu fileMenu;
 
     private Schedule schedule;
     private Journal journal;
@@ -37,17 +39,13 @@ public class MainWindow extends JFrame{
         addTasksButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AddTasksWindow.runWindow(schedule, journal);
+                addTask();
             }
         });
         startSessionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(schedule.days.values());
-                DefaultListModel<Day> listModel = new DefaultListModel<Day>();
-                listModel.addAll(schedule.days.values());
-                list1.setModel(listModel);
-                list1.updateUI();
+                updateList();
             }
         });
 
@@ -56,6 +54,19 @@ public class MainWindow extends JFrame{
     public static void main(String[] args) throws IOException {
         FlatDarkLaf.setup();
         MainWindow gui = new MainWindow();
+        JMenuItem setDates = new JMenuItem("Set Date Availability");
+        setDates.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui.addTask();
+            }
+        });
+        gui.fileMenu = new JMenu();
+        gui.fileMenu.setText("File");
+        gui.menuBar = new JMenuBar();
+        gui.fileMenu.add(setDates);
+        gui.menuBar.add(gui.fileMenu);
+        gui.setJMenuBar(gui.menuBar);
         gui.setDefaultCloseOperation(EXIT_ON_CLOSE);
         gui.setTitle("Grade Management");
         gui.calendarPanel.add(new GCalPanel());
@@ -64,10 +75,14 @@ public class MainWindow extends JFrame{
 
     }
 
-    public void tasksUpdate(){
-        DefaultListModel<Task> listModel = new DefaultListModel<>();
-        System.out.println(tasks);
-        listModel.addAll(tasks);
+    public void addTask(){
+        AddTasksWindow.runWindow(schedule, journal, this);
+    }
+
+    public void updateList(){
+        //Adds the schedule to a listmodel and applies it to the list.
+        DefaultListModel<Day> listModel = new DefaultListModel<Day>();
+        listModel.addAll(schedule.days.values());
         list1.setModel(listModel);
         list1.updateUI();
     }

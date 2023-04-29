@@ -58,7 +58,7 @@ public class MainWindow extends JFrame{
         setDates.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gui.addTask();
+                DateAvailabilityManager.runWindow(gui.schedule);
             }
         });
         gui.fileMenu = new JMenu();

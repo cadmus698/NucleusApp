@@ -9,33 +9,26 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 public class MainWindow extends JFrame{
     private JPanel mainPanel;
-    private JList list1;
     private JButton addTasksButton;
     private JButton startSessionButton;
     private JPanel calendarPanel;
-    private JPanel sessionPanel;
-    private JPanel musicPanel;
+    private JTabbedPane tabbedPane1;
+    private JScrollPane sessionHistory;
     private JMenuBar menuBar;
     private JMenu fileMenu;
-
-    private Schedule schedule;
     private Journal journal;
     private ArrayList<Task> tasks;
 
     public MainWindow(){
         setContentPane(mainPanel);
-        schedule = new Schedule();
         journal = new Journal();
         tasks = new ArrayList<>();
-        journal.add(new Chapter("Red", new Color(255,0,0)));
-        journal.add(new Chapter("Green", new Color(0,255,0)));
-        journal.add(new Chapter("Blue", new Color(0,0,255)));
+        journal.add(new Chapter("Default", new Color(255,255,255), 1));
         addTasksButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,7 +38,7 @@ public class MainWindow extends JFrame{
         startSessionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateList();
+                SessionGUI.runWindow(journal.getSchedule().toDo.get(LocalDate.now()));
             }
         });
 
@@ -58,17 +51,25 @@ public class MainWindow extends JFrame{
         setDates.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DateAvailabilityManager.runWindow(gui.schedule);
+                DateAvailabilityManager.runWindow(gui.journal.getSchedule());
+            }
+        });
+        JMenuItem settings = new JMenuItem("Settings");
+        settings.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SettingsManager.runWindow(gui.journal);
             }
         });
         gui.fileMenu = new JMenu();
         gui.fileMenu.setText("File");
         gui.menuBar = new JMenuBar();
         gui.fileMenu.add(setDates);
+        gui.fileMenu.add(settings);
         gui.menuBar.add(gui.fileMenu);
         gui.setJMenuBar(gui.menuBar);
         gui.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        gui.setTitle("Grade Management");
+        gui.setTitle("Work Management");
         gui.calendarPanel.add(new GCalPanel());
         gui.setVisible(true);
         gui.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -76,14 +77,15 @@ public class MainWindow extends JFrame{
     }
 
     public void addTask(){
-        AddTasksWindow.runWindow(schedule, journal, this);
+        AddTasksWindow.runWindow(journal, this);
     }
 
     public void updateList(){
-        //Adds the schedule to a listmodel and applies it to the list.
-        DefaultListModel<Day> listModel = new DefaultListModel<Day>();
-        listModel.addAll(schedule.days.values());
-        list1.setModel(listModel);
-        list1.updateUI();
+        tabbedPane1.removeAll();
+        for(Day d : journal.getSchedule().toDo.values()){
+            tabbedPane1.addTab(d.date.toString(), new DaySchedule(d));
+        }
+        tabbedPane1.revalidate();
+        tabbedPane1.repaint();
     }
 }

@@ -22,7 +22,7 @@ public class AddTasksWindow extends JFrame{
     private DatePicker dueDatePicker;
     private JPanel mainPanel;
 
-    public AddTasksWindow(Schedule schedule, Journal journal, MainWindow mainWindow){
+    public AddTasksWindow(Journal journal, MainWindow mainWindow){
         FlatDarkLaf.setup();
         setContentPane(mainPanel);
         SpinnerModel spinnerModel = new SpinnerNumberModel(30, 5, 180, 5);
@@ -38,15 +38,14 @@ public class AddTasksWindow extends JFrame{
                 dispose();
                 Task t = new Task(titleField.getText(), (Chapter) chapterPicker.getSelectedItem(), prioritySlider.getValue(), dueDatePicker.getDate(), (int) lengthPicker.getValue(), descBox.getText());
                 t.selfInit();
-                schedule.add(t);
+                journal.addTask(t);
                 mainWindow.updateList();
-                System.out.println(t.title + " - " + t.chapter + " - " + t.priority + " - " + t.dueDate + " - " + t.length + " - " + t.description);
             }
         });
     }
 
-    public static void runWindow(Schedule schedule, Journal journal, MainWindow mainWindow){
-        AddTasksWindow gui = new AddTasksWindow(schedule, journal, mainWindow);
+    public static void runWindow(Journal journal, MainWindow mainWindow){
+        AddTasksWindow gui = new AddTasksWindow(journal, mainWindow);
         gui.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         gui.setSize(500, 300);
         gui.setTitle("Add Task");

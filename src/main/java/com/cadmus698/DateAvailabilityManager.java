@@ -26,7 +26,12 @@ public class DateAvailabilityManager extends JFrame{
             @Override
             public void dateChanged(DateChangeEvent dateChangeEvent) {
                 pickedDate = dateChangeEvent.getNewDate();
-                spinner1.setValue(schedule.days.get(pickedDate).minsAvailable);
+                if(s.toDo.containsKey(pickedDate)){
+                    spinner1.setValue(schedule.toDo.get(pickedDate).minsAvailable);
+                }
+                else{
+                    spinner1.setValue(Schedule.DEFAULTAVAILABILITY);
+                }
 
             }
         });
@@ -35,10 +40,10 @@ public class DateAvailabilityManager extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 int mins = (int) spinner1.getValue();
-                if(!s.days.containsKey(pickedDate)){
-                    s.days.put(pickedDate, new Day(pickedDate, mins));
+                if(!s.toDo.containsKey(pickedDate)){
+                    s.toDo.put(pickedDate, new Day(pickedDate, mins));
                 }
-                s.days.get(pickedDate).setMinsAvailable(mins);
+                s.toDo.get(pickedDate).setMinsAvailable(mins);
             }
         });
     }

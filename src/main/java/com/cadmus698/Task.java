@@ -2,13 +2,12 @@ package com.cadmus698;
 
 import java.time.LocalDate;
 
-public class Task {
+public class Task implements Comparable<Task> {
     
     String title;
     Chapter chapter;
     int priority;
     LocalDate dueDate;
-    LocalDate toDoDate;
     int length;
     String description;
 
@@ -17,7 +16,6 @@ public class Task {
         chapter = cha;
         priority = pri;
         dueDate = due;
-        toDoDate = dueDate;
         length = len;
         description = desc;
     }
@@ -27,11 +25,40 @@ public class Task {
     }
 
     public String toString(){
-        return title;
+        return title + " - " + length + "min - " + "due " + dueDate;
     }
 
     public void initTask(){
         chapter.add(this);
+    }
+
+    public int compareTo(Task other){
+        if(priority > other.priority){
+            return 1;
+        }
+        else if(priority == other.priority){
+            if(length > other.length){
+                return 1;
+            }
+            else if(length == other.length){
+                if(dueDate.isBefore(other.dueDate)){
+                    return 1;
+                }
+                else if(dueDate.isEqual(other.dueDate)){
+                    return chapter.compareTo(other.chapter);
+                }
+                else{
+                    return -1;
+                }
+            }
+            else{
+                return -1;
+            }
+        }
+        else{
+            return -1;
+        }
+
     }
     
 }

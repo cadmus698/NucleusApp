@@ -46,7 +46,7 @@ public class SessionGUI  extends JFrame{
     public void startTask(){
         Timer timer = new Timer();
         final int[] secsReq = {currentTask.length * 60};
-        // scheduling the task at fixed rate delay
+        //Starting timer by counting down required seconds
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {

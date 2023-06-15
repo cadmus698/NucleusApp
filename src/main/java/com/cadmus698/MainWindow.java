@@ -47,6 +47,7 @@ public class MainWindow extends JFrame{
     public static void main(String[] args) throws IOException {
         FlatDarkLaf.setup();
         MainWindow gui = new MainWindow();
+        //Setting up menu
         JMenuItem setDates = new JMenuItem("Set Date Availability");
         setDates.addActionListener(new ActionListener() {
             @Override
@@ -77,10 +78,12 @@ public class MainWindow extends JFrame{
     }
 
     public void addTask(){
+        //Runs task addition window
         AddTasksWindow.runWindow(journal, this);
     }
 
     public void updateList(){
+        //Refreshes tabs to have one up do date tab per day
         tabbedPane1.removeAll();
         for(Day d : journal.getSchedule().toDo.values()){
             tabbedPane1.addTab(d.date.toString(), new DaySchedule(d));

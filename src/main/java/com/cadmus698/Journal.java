@@ -12,7 +12,7 @@ public class Journal {
     public Journal(){
         chapters = new ArrayList<>();
         schedule = new Schedule();
-        playlistURI = "6BR6U9PuCIUmVqQdDTIClS";
+        playlistURI = "";
     }
 
     public void add(Chapter c){

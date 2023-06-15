@@ -20,6 +20,7 @@ public class SettingsManager extends JFrame{
         journal = j;
         setContentPane(mainPanel);
         updateList();
+        //Setup spinner constraints.
         SpinnerModel spinnerModel = new SpinnerNumberModel(240, 30, 720, 30);
         availabilitySet.setModel(spinnerModel);
 
@@ -73,9 +74,5 @@ public class SettingsManager extends JFrame{
         gui.setSize(1200, 600);
         gui.setTitle("Manage Settings");
         gui.setVisible(true);
-    }
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
     }
 }

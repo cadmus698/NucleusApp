@@ -33,6 +33,7 @@ public class Task implements Comparable<Task> {
     }
 
     public int compareTo(Task other){
+        //Task sorting system, priority > length > due date > chapter (no tiebreaker needed)
         if(priority > other.priority){
             return 1;
         }

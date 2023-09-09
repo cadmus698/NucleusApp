@@ -13,21 +13,35 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class MainWindow extends JFrame{
-    private JPanel mainPanel;
-    private JButton addTasksButton;
-    private JButton startSessionButton;
-    private JPanel calendarPanel;
-    private JTabbedPane tabbedPane1;
-    private JScrollPane sessionHistory;
-    private JMenuBar menuBar;
-    private JMenu fileMenu;
-    private Journal journal;
-    private ArrayList<Task> tasks;
+    public JPanel mainPanel;
+    public JButton addTasksButton;
+    public JButton startSessionButton;
+    public JPanel calendarPanel;
+    public JTabbedPane tabbedPane1;
+    public JScrollPane sessionHistory;
+    public JMenuBar menuBar;
+    public JMenu fileMenu;
+    public Journal journal;
 
+    public MainWindow(Journal j){
+        setContentPane(mainPanel);
+        journal = j;
+        addTasksButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addTask();
+            }
+        });
+        startSessionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SessionGUI.runWindow(journal.getSchedule().toDo.get(LocalDate.now()));
+            }
+        });
+    }
     public MainWindow(){
         setContentPane(mainPanel);
         journal = new Journal();
-        tasks = new ArrayList<>();
         journal.add(new Chapter("Default", new Color(255,255,255), 1));
         addTasksButton.addActionListener(new ActionListener() {
             @Override
@@ -44,7 +58,7 @@ public class MainWindow extends JFrame{
 
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void run() throws IOException {
         FlatDarkLaf.setup();
         MainWindow gui = new MainWindow();
         //Setting up menu
@@ -62,6 +76,7 @@ public class MainWindow extends JFrame{
                 SettingsManager.runWindow(gui.journal);
             }
         });
+        JMenuItem save = new JMenuItem("Save");
         gui.fileMenu = new JMenu();
         gui.fileMenu.setText("File");
         gui.menuBar = new JMenuBar();
@@ -83,7 +98,7 @@ public class MainWindow extends JFrame{
     }
 
     public void updateList(){
-        //Refreshes tabs to have one up do date tab per day
+        //Refreshes tabs to have one up-to-date tab per day
         tabbedPane1.removeAll();
         for(Day d : journal.getSchedule().toDo.values()){
             tabbedPane1.addTab(d.date.toString(), new DaySchedule(d));

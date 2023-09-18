@@ -2,7 +2,6 @@ package com.cadmus698;
 
 import com.cadmus698.nucleusfx.GCalPanel;
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -40,6 +39,8 @@ public class ProjectManagementWindow extends JFrame{
                 if(j != null){
                     runMainWindow(j);
                 }
+                setVisible(false);
+                dispose();
             }
         });
         newButton.addActionListener(new ActionListener() {
@@ -49,8 +50,19 @@ public class ProjectManagementWindow extends JFrame{
                     runMainWindow();
                 }
                 catch (Exception ignored){}
+                setVisible(false);
+                dispose();
             }
         });
+    }
+
+    public static void main(String[] args) {
+        FlatDarkLaf.setup();
+        ProjectManagementWindow gui = new ProjectManagementWindow();
+        gui.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        gui.setTitle("Project Management");
+        gui.setVisible(true);
+        gui.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     public void runMainWindow() throws IOException {
         MainWindow.run();

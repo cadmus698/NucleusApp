@@ -22,6 +22,7 @@ public class MainWindow extends JFrame{
     public JMenuBar menuBar;
     public JMenu fileMenu;
     public Journal journal;
+    public ArrayList<Task> tasks;
 
     public MainWindow(Journal j){
         setContentPane(mainPanel);
@@ -82,6 +83,7 @@ public class MainWindow extends JFrame{
         gui.menuBar = new JMenuBar();
         gui.fileMenu.add(setDates);
         gui.fileMenu.add(settings);
+        gui.fileMenu.add(save);
         gui.menuBar.add(gui.fileMenu);
         gui.setJMenuBar(gui.menuBar);
         gui.setDefaultCloseOperation(EXIT_ON_CLOSE);

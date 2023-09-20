@@ -1,10 +1,11 @@
 package com.cadmus698;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class Schedule {
+public class Schedule implements Serializable {
     public static int DEFAULTAVAILABILITY = 240;
     ArrayList<Task> tasks;
     TreeMap<LocalDate, Day> toDo;

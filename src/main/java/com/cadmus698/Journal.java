@@ -1,8 +1,9 @@
 package com.cadmus698;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Journal {
+public class Journal implements Serializable {
     public ArrayList<Chapter> chapters;
 
     private Schedule schedule;

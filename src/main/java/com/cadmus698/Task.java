@@ -1,8 +1,9 @@
 package com.cadmus698;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Task implements Comparable<Task> {
+public class Task implements Comparable<Task>, Serializable {
     
     String title;
     Chapter chapter;

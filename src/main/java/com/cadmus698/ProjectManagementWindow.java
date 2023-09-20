@@ -15,30 +15,28 @@ public class ProjectManagementWindow extends JFrame{
     private JButton newButton;
     private JPanel mainPanel;
 
-    public ProjectManagementWindow() {
+    public ProjectManagementWindow(){
         setContentPane(mainPanel);
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser jfc = new JFileChooser();
-                jfc.showOpenDialog(null);
-                Journal j = null;
+                Journal j = new Journal();
                 try {
+                    JFileChooser jfc = new JFileChooser();
+                    jfc.showOpenDialog(null);
                     // Reading the object from a file
                     FileInputStream file = new FileInputStream(jfc.getSelectedFile());
                     ObjectInputStream in = new ObjectInputStream(file);
-
                     // Method for deserialization of object
                     j = (Journal) in.readObject();
 
                     in.close();
                     file.close();
-                } catch (Exception ex) {
-                    System.out.println("Exception is caught");
                 }
-                if(j != null){
-                    runMainWindow(j);
+                catch (Exception ex){
+                    System.out.println(ex.toString());
                 }
+                runMainWindow(j);
                 setVisible(false);
                 dispose();
             }

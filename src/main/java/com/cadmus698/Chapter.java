@@ -1,9 +1,10 @@
 package com.cadmus698;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Chapter implements Comparable<Chapter> {
+public class Chapter implements Comparable<Chapter>, Serializable {
     ArrayList<Task> tasks;
     String title;
     Color color;

@@ -1,10 +1,11 @@
 package com.cadmus698;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Day {
+public class Day implements Serializable {
     LocalDate date;
     int minsAvailable;
     ArrayList<Task> tasks;

@@ -13,6 +13,7 @@ public class SettingsManager extends JFrame{
     private JList list1;
     private JPanel mainPanel;
     private JTextField playlistSelector;
+    private JButton editButton;
 
     private Journal journal;
 
@@ -41,6 +42,12 @@ public class SettingsManager extends JFrame{
                 }
                 journal.removeChapter(c);
                 updateList();
+            }
+        });
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
         availabilitySet.addPropertyChangeListener(new PropertyChangeListener() {

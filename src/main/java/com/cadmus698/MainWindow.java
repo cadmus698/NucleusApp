@@ -44,15 +44,17 @@ public class MainWindow extends JFrame{
         });
         updateList();
     }
-    public static void run(Journal j){
+    public static void run(Journal j) {
         MainWindow gui = new MainWindow(j);
+        init(gui);
     }
     public static void run(){
         Journal j = new Journal();
         j.add(new Chapter("Default", new Color(255,255,255), 1));
         MainWindow gui = new MainWindow(j);
+        init(gui);
     }
-    public static void init(MainWindow gui) throws IOException {
+    public static void init(MainWindow gui){
         FlatDarkLaf.setup();
         //Setting up menu
         JMenuItem setDates = new JMenuItem("Set Date Availability");
